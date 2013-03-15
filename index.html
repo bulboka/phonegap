@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta charset="utf-8">
+	<title>Vizin</title>
+  <script src="js/jquery-1.8.3.min.js"></script>
+  <script src="js/jquery.waitforimages.js"></script>
+	<script src="js/jquery.ui.core.min.js"></script>
+	<script src="js/jquery.ui.widget.min.js"></script>
+	<script src="js/jquery.ui.mouse.min.js"></script>
+	<script src="js/jquery.ui.sortable.min.js"></script>
+	<script src="js/jquery.ui.touch-punch.min.js"></script>
+  <script>
+  $(document).ready(function() {
+
+    $.waitForImages.hasImgProperties = ['backgroundImage'];
+    $('#Stage').waitForImages({
+      waitForAll: true,
+      finished: function() {
+        $("#Stage").fadeIn(1000);
+      }
+    });
+    
+      $('.puzzle-bg, .puzzle-item-light').click(function(e) {
+        $('.puzzle-item-light').addClass('animate');
+        $('.puzzle-item-empty').fadeIn(100);
+      });
+      
+      
+      $( ".sortable-source-1" ).sortable({
+        connectWith: ".sortable-destination",
+        start: function( event, ui ) {
+        },
+        beforeStop: function( event, ui ) {
+          //$('.sortable-source-1').addClass('empty');
+        },
+      });
+      $( ".sortable-destination" ).sortable();
+
+      $('.sortable-destination li').live('mousedown', function() {
+          if ($(this).is('.item-1')){
+            var destItems = '1';
+          }
+          else if ($(this).is('.item-2')){
+            var destItems = '2';
+          }
+          else if ($(this).is('.item-3')){
+            var destItems = '3';
+          }
+        $( ".sortable-destination" ).sortable({
+          items: 'li.item-' + destItems,
+          connectWith: '.sortable-source-' + destItems,
+          start: function( event, ui ) {
+          },
+          beforeStop: function( event, ui ) {
+            //$('.sortable-source-1').removeClass('empty');
+          },
+        });
+      });
+      
+      $( ".sortable-source-2" ).sortable({
+        connectWith: ".sortable-destination",
+        start: function( event, ui ) {
+        },
+        beforeStop: function( event, ui ) {
+          //$('.sortable-source-2').addClass('empty');
+        },
+      });
+      /*$( ".sortable-destination" ).sortable({
+        items: 'li.item-2',
+        connectWith: ".sortable-source-2",
+        start: function( event, ui ) {
+        },
+        beforeStop: function( event, ui ) {
+          $('.sortable-source-2').removeClass('empty');
+        },
+      });*/
+      
+      $( ".sortable-source-3" ).sortable({
+        connectWith: ".sortable-destination",
+        start: function( event, ui ) {
+        },
+        beforeStop: function( event, ui ) {
+          //$('.sortable-source-3').addClass('empty');
+        },
+      });
+      /*$( ".sortable-destination-3" ).sortable({
+        connectWith: ".sortable-source-3",
+        start: function( event, ui ) {
+        },
+        beforeStop: function( event, ui ) {
+          $('.sortable-source-3').removeClass('empty');
+        },
+      });*/
+      
+      $( ".sortable-destination, .sortable-source-1, .sortable-source-2, .sortable-source-3" ).disableSelection();
+      
+  });
+  </script>
+  <style>
+      #Stage {width: 1024px; height: 700px; overflow: hidden; background: url(i/slides-01.jpg) 0 0 no-repeat; font-family: Myriad Pro, Calibri, Arial, sans-serif; display: none; /*-webkit-transform: translate3d(0px, 0px, 0px); -webkit-transition: -webkit-transform 1s linear;*/ /*opacity: 0;*/ /*visibility: hidden;*/}
+      .slide-01 {padding: 0 35px 0;}
+      
+      #header {}
+      #header h1 {font-size: 23px; font-weight: normal; color: #fff; margin: 5px 0 100px 0; padding: 0; text-align: center; height: 52px; line-height: 23px;}
+      
+      #sortable-destination-wrap {position: relative; background: #fff url(i/eye.jpg) 0 0 no-repeat; width: 536px; height: 395px; float: left; -webkit-box-shadow: 1px 1px 6px 0px #888; -moz-box-shadow: 1px 1px 6px 0px #888; box-shadow: 1px 1px 6px 0px #888;}
+          .sortable-destination {position: absolute; /*z-index: 20;*/ top: 0; left: 0; width: 85px; height: 86px; margin: 0; /*padding: 113px 254px 196px 197px;*/ padding:0;}
+              .sortable-destination-1 {/*padding: 113px 254px 196px 197px;*/ top: 113px; left: 197px;}
+              .sortable-destination-2 {/*padding: 142px 142px 167px 309px;*/ top: 142px; left: 309px;}
+              .sortable-destination-3 {/*padding: 255px 282px 54px 169px;*/ top: 255px; left: 169px;}
+              .sortable-destination-4 {/*padding: 255px 282px 54px 169px;*/ top: 255px; left: 169px;}
+          .sortable-destination .item {position: relative; top: 0; width: 85px; height: 86px; display: block; text-indent: 100px; list-style: none;}
+          .sortable-destination .item-1 {background: url(i/item-1.png) 0 0 no-repeat; z-index: 15;}
+          .sortable-destination .item-2 {background: url(i/item-2.png) 0 28px no-repeat; z-index: 15;}
+          .sortable-destination .item-3 {background: url(i/item-3.png) 0 0 no-repeat; z-index: 15;}
+          .destination-description {position: absolute; top: 3px; left: 10px; font-size: 14px;}
+          
+      .puzzle-bg {position: absolute; top: 0; left: 0; background: url(i/puzzle.png) 0 0 no-repeat; width: 536px; height: 395px; z-index: 11; cursor: pointer;}
+
+      .puzzle-item-empty {display: none; position: absolute; top: 112px; left: 196px; background: url(i/puzzle-item-empty.png) 0 0 no-repeat; width: 87px; height: 88px; z-index: 12; cursor: pointer;}
+        .puzzle-item-empty-1 {top: 112px; left: 196px;}
+        .puzzle-item-empty-2 {top: 141px; left: 308px;}
+        .puzzle-item-empty-3 {top: 254px; left: 168px;}
+
+      .puzzle-item-light {position: absolute; top: 112px; left: 196px; background: url(i/puzzle-item-light.png) 0 0 no-repeat; width: 87px; height: 88px; z-index: 13; cursor: pointer;}
+        .puzzle-item-light-1 {top: 112px; left: 196px;}
+        .puzzle-item-light-2 {top: 141px; left: 308px;}
+        .puzzle-item-light-3 {top: 254px; left: 168px;}
+        
+      .puzzle-item-light-1.animate {
+        -moz-animation: puzzle1 1s ease-out; /*[linear, ease,ease-in, ease-out];*/
+        -moz-animation-iteration-count: 1;
+        -moz-animation-fill-mode: both;
+        -webkit-animation: puzzle1 1s ease-out; /*[linear, ease,ease-in, ease-out];*/
+        -webkit-animation-iteration-count: 1;
+        -webkit-animation-fill-mode: both;
+        animation: puzzle1 1s ease-out; /*[linear, ease,ease-in, ease-out];*/
+        animation-iteration-count: 1;
+        animation-fill-mode: both;
+      }
+          @-moz-keyframes puzzle1{
+            0% {left:196px; top: 112px; -webkit-transform: rotate(0deg); opacity: 1;}
+            100% {left:300px; top: -105px; -webkit-transform: rotate(369deg); opacity: 0;}
+          }
+          @-webkit-keyframes puzzle1{
+            0% {left:196px; top: 112px; -webkit-transform: rotate(0deg); opacity: 1;}
+            100% {left:300px; top: -105px; -webkit-transform: rotate(369deg); opacity: 0;}
+          }
+          @keyframes puzzle1{
+            0% {left:196px; top: 112px; -webkit-transform: rotate(0deg); opacity: 1;}
+            100% {left:300px; top: -105px; -webkit-transform: rotate(369deg); opacity: 0;}
+          }
+      .puzzle-item-light-2.animate {
+        -moz-animation: puzzle2 1s ease-out; /*[linear, ease,ease-in, ease-out];*/
+        -moz-animation-iteration-count: 1;
+        -moz-animation-fill-mode: both;
+        -webkit-animation: puzzle2 1s ease-out; /*[linear, ease,ease-in, ease-out];*/
+        -webkit-animation-iteration-count: 1;
+        -webkit-animation-fill-mode: both;
+        animation: puzzle2 1s ease-out; /*[linear, ease,ease-in, ease-out];*/
+        animation-iteration-count: 1;
+        animation-fill-mode: both;
+      }
+          @-moz-keyframes puzzle2{
+            0% {top: 141px; left: 308px; -webkit-transform: rotate(0deg); opacity: 1;}
+            100% {top: 421px; left: 808px; -webkit-transform: rotate(369deg); opacity: 0;}
+          }
+          @-webkit-keyframes puzzle2{
+            0% {top: 141px; left: 308px; -webkit-transform: rotate(0deg); opacity: 1;}
+            100% {top: 421px; left: 808px; -webkit-transform: rotate(369deg); opacity: 0;}
+          }
+          @keyframes puzzle2{
+            0% {top: 141px; left: 308px; -webkit-transform: rotate(0deg); opacity: 1;}
+            100% {top: 421px; left: 808px; -webkit-transform: rotate(369deg); opacity: 0;}
+          }
+      .puzzle-item-light-3.animate {
+        -moz-animation: puzzle3 1s ease-out; /*[linear, ease,ease-in, ease-out];*/
+        -moz-animation-iteration-count: 1;
+        -moz-animation-fill-mode: both;
+        -webkit-animation: puzzle3 1s ease-out; /*[linear, ease,ease-in, ease-out];*/
+        -webkit-animation-iteration-count: 1;
+        -webkit-animation-fill-mode: both;
+        animation: puzzle3 1s ease-out; /*[linear, ease,ease-in, ease-out];*/
+        animation-iteration-count: 1;
+        animation-fill-mode: both;
+      }
+          @-moz-keyframes puzzle3{
+            0% {top: 254px; left: 168px; -webkit-transform: rotate(0deg); opacity: 1;}
+            100% {top: 406px; left: 50px; -webkit-transform: rotate(-372deg); opacity: 0;}
+          }
+          @-webkit-keyframes puzzle3{
+            0% {top: 254px; left: 168px; -webkit-transform: rotate(0deg); opacity: 1;}
+            100% {top: 406px; left: 50px; -webkit-transform: rotate(-372deg); opacity: 0;}
+          }
+          @keyframes puzzle3{
+            0% {top: 254px; left: 168px; -webkit-transform: rotate(0deg); opacity: 1;}
+            100% {top: 406px; left: 50px; -webkit-transform: rotate(-372deg); opacity: 0;}
+          }
+
+      #sortable-source-wrap {position: relative; top: 22px; width: 85px; height: auto; float: left; margin: 0; padding: 0;}
+      .sortable-source {margin:0; padding: 0; width: 85px; height: 86px; position: absolute; padding: 0px 300px 23px 40px;}
+          .sortable-source-1 {top: 0;}
+          .sortable-source-2 {top: 131px;}
+          .sortable-source-3 {top: 262px;}
+      .sortable-source .item {position: absolute; width: 85px; height: 86px; display: block; text-indent: 100px; list-style: none; margin: 0; cursor: pointer;}
+          .sortable-source-1 .item {background: url(i/item-1.png) 0 50% no-repeat; z-index: 22; position: absolute; top: 0;}
+          .sortable-source-2 .item {background: url(i/item-2.png) 0 50% no-repeat; z-index: 21;}
+          .sortable-source-3 .item {background: url(i/item-3.png) 0 50% no-repeat; z-index: 21;}
+
+      .sortable-source-disable {margin:0; padding: 0; width: 85px; height: 86px; position: absolute; left: 40px;}
+          .sortable-source-disable-1 {top: 0;}
+          .sortable-source-disable-2 {top: 160px;}
+          .sortable-source-disable-3 {top: 277px;}
+      .sortable-source-disable .item {position: relative; width: 85px; height: 86px; display: block; text-indent: 100px; list-style: none; margin: 0; cursor: pointer;}
+          .sortable-source-disable-1 .item {background: url(i/item-1.png) 0 0 no-repeat; z-index: 20;}
+          .sortable-source-disable-2 .item {background: url(i/item-2.png) 0 0 no-repeat; z-index: 19;}
+          .sortable-source-disable-3 .item {background: url(i/item-3.png) 0 0 no-repeat; z-index: 19;}
+
+      #description-wrap {position: relative; top: 30px; left: 140px;  width: 280px; float: left; display: block;}
+      #description-wrap .row {margin: 0; padding: 0; display: block; position: absolute;}
+      #description-wrap .row-1 {top: 14px;}
+      #description-wrap .row-2 {top: 120px;}
+      #description-wrap .row-3 {top: 275px;}
+      #description-wrap .row .content {display: block; font-size: 18px;}
+      
+      .ui-content {padding:0;}
+  </style>
+</head>
+<body style="margin:0;padding:0;">
+  
+	<div data-role="page">
+  
+    <div data-role="content">
+      <div id="Stage">
+        <div class="slide-01">
+          <div id="header">
+            <h1>Молекулярная структура Визин Чистая Слеза <br />максимально близка муцину-1 человеческой слезы</h1>
+          </div>
+    
+          <div id="sortable-destination-wrap">
+            <div class="puzzle-bg"></div>
+            <div class="puzzle-item-empty puzzle-item-empty-1"></div>
+            <div class="puzzle-item-empty puzzle-item-empty-2"></div>
+            <div class="puzzle-item-empty puzzle-item-empty-3"></div>
+            
+            <div class="puzzle-item-light puzzle-item-light-1"></div>
+            <div class="puzzle-item-light puzzle-item-light-2"></div>
+            <div class="puzzle-item-light puzzle-item-light-3"></div>
+            
+            <div class="destination-description">Муциновый слой слезной пленки</div>
+            <!--<ul class="sortable-destination sortable-destination-1 for-source-1"></ul>
+            <ul class="sortable-destination sortable-destination-2 for-source-1"></ul>
+            <ul class="sortable-destination sortable-destination-3"></ul>
+            <ul class="sortable-destination sortable-destination-4"></ul>-->
+            <ul class="sortable-destination sortable-destination-1"></ul>
+            <ul class="sortable-destination sortable-destination-2"></ul>
+            <ul class="sortable-destination sortable-destination-3"></ul>
+
+          </div>
+          
+          <div id="sortable-source-wrap">
+            <ul class="sortable-source sortable-source-1">
+              <li class="item item-1 first"></li>
+              <li class="item item-1 first"></li>
+              <li class="item item-1 first"></li>
+            </ul>
+            <ul class="sortable-source-disable sortable-source-disable-1">
+              <li class="item absolute"></li>
+            </ul>
+            <ul class="sortable-source sortable-source-2">
+              <li class="item item-2"></li>
+              <li class="item item-2"></li>
+              <li class="item item-2"></li>
+            </ul>
+            <ul class="sortable-source-disable sortable-source-disable-2">
+              <li class="item absolute"></li>
+            </ul>
+            <ul class="sortable-source sortable-source-3">
+              <li class="item item-3 last"></li>
+              <li class="item item-3 last"></li>
+              <li class="item item-3 last"></li>
+            </ul>
+            <ul class="sortable-source-disable sortable-source-disable-3">
+              <li class="item absolute"></li>
+            </ul>
+          </div>
+          
+          <div id="description-wrap">
+            <div class="row row-1"><div class="content"><strong>TS-полисахарид</strong><br />ВИЗИН® Чистая Слеза</div></div>
+            <div class="row row-2"><div class="content"><strong>Гипрометилцеллюлоза,<br />гиалуроновая кислота</strong><br />Слеза Натуральная®,<br />Искусственная слеза®, Визмед®</div></div>
+            <div class="row row-3"><div class="content"><strong>Гуаровая смола</strong><br />Систейн®, Систейн® Ультра</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+	</div>
+  
+</body>
+</html>
